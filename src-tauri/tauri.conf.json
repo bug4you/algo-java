@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "algojava",
+  "version": "0.1.0-alpha",
+  "identifier": "uz.algoexpert.algojava",
+  "build": {
+    "beforeDevCommand": "yarn dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "yarn build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "AlgoJava",
+        "width": 960,
+        "height": 620,
+        "decorations": false,
+        "resizable": true,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": [],
+    "category": "DeveloperTool",
+    "shortDescription": "Java orqali algoritmik bilimlarni mustahkamlovchi ta'limiy platforma.",
+    "longDescription": "AlgoJava foydalanuvchilarga Java tilida algoritmik masalalarni ishlash, o‘rganish va sinovdan o‘tkazish imkonini beradi.",
+    "publisher": "AlgoExpert Labs",
+    "copyright": "© 2025 AlgoExpert Labs"
+  }
+}

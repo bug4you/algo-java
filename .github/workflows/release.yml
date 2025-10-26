@@ -1,0 +1,53 @@
+name: Build & Release (Tauri v2)
+on:
+  push:
+    tags:
+      - "v*"   # Masalan: v0.1.0-alpha yoki v0.1.1
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-22.04, macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 🦀 Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - name: 🧰 Install frontend dependencies
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: 🏗️ Build & Bundle with Tauri
+        uses: tauri-apps/tauri-action@v0
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "AlgoJava ${{ github.ref_name }}"
+          releaseBody: "🚀 Alpha release for testing on all platforms.\n\nThis version may contain experimental features."
+          releaseDraft: false
+          releasePrerelease: true
+
+      - name: ✅ Upload build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: algojava-${{ matrix.platform }}
+          path: |
+            src-tauri/target/release/bundle/**

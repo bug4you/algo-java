@@ -1,0 +1,101 @@
+.google-sans-code {
+    font-family: 'Google Sans Code Variable', monospace;
+}
+
+.aref-ruqaa-400 {
+    font-family: 'Aref Ruqaa', serif;
+    font-weight: 400;
+}
+
+.aref-ruqaa-700 {
+    font-family: 'Aref Ruqaa', serif;
+    font-weight: 700;
+}
+
+:root{
+    --tb-height: 36px;
+    --tb-bg: rgba(20,20,20,0.55);            /* dark translucent */
+    --tb-border: rgba(255,255,255,0.07);
+    --tb-shadow: 0 1px 0 rgba(255,255,255,0.05) inset, 0 0 0 1px rgba(0,0,0,0.35);
+    --tb-title: rgba(255,255,255,0.75);
+}
+
+code, pre {
+    font-family: 'Google Sans Code', monospace !important;
+}
+
+/* Container */
+.titlebar{
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: var(--tb-height);
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: 140px 1fr 140px; /* left controls / title / right spacer */
+    align-items: center;
+    -webkit-user-select: none;
+}
+
+/* Frosted background */
+.titlebar-bg{
+    position: absolute; inset: 0;
+    background: var(--tb-bg);
+    border-bottom: 1px solid var(--tb-border);
+    backdrop-filter: saturate(140%) blur(16px);
+    box-shadow: var(--tb-shadow);
+}
+
+/* Left controls */
+.controls{
+    position: relative;
+    display: flex;
+    gap: 8px;
+    padding-left: 12px;
+    z-index: 1;
+}
+
+/* Traffic light buttons */
+.ctrl{
+    -webkit-app-region: no-drag;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    display: inline-grid; place-items: center;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.25);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
+    padding: 0; margin: 0;
+    cursor: default;
+}
+
+.ctrl svg{
+    width: 7px; height: 7px;
+    color: rgba(0,0,0,0.55);
+    opacity: 0;
+    transition: opacity .12s ease;
+}
+
+.controls:hover .ctrl svg{ opacity: 1; }  /* icons appear only on hover */
+
+.ctrl-close{ background: #ff5f57; border-color: #e0443e; }
+.ctrl-min  { background: #febc2e; border-color: #dea123; }
+.ctrl-max  { background: #28c840; border-color: #1ea134; }
+
+.ctrl:active{ filter: brightness(0.9); }
+
+/* Centered title */
+.title{
+    position: relative; z-index:1;
+    justify-self: center;
+    font-size: 13px;
+    letter-spacing: .3px;
+    color: var(--tb-title);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+}
+
+/* Make content sit below the fixed titlebar */
+body, .page-wrapper, .content-wrapper{ padding-top: var(--tb-height); }
+
+/* HiDPI crispness */
+@media (min-resolution: 2dppx){
+    .title{ font-weight: 500; }
+}
